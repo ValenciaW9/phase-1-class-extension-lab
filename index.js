@@ -1,32 +1,24 @@
-const Polygon = require('./Polygon');
-const Triangle = require('./Triangle');
-const Square = require('./Square');
+class Polygon {
+  constructor(sides) {
+    this.sides = sides;
+  }
 
-// Create a new instance of Polygon
-const polygon = new Polygon([5, 5, 5]);
+  get countSides() {
+    return this.sides.length;
+  }
 
-// Test Polygon methods
-console.log(polygon.countSides); // Output: 3
-console.log(polygon.perimeter); // Output: 15
+  get perimeter() {
+    return this.sides.reduce((sum, side) => sum + side, 0);
+  }
+}
 
-// Create a new instance of Triangle
-const triangle = new Triangle([5, 5, 5]);
-const triangle2 = new Triangle([15, 10, 1]);
+class Triangle extends Polygon {
+  get isValid() {
+    if (this.countSides !== 3) {
+      return false;
+    }
 
-// Test Triangle methods
-console.log(triangle.countSides); // Output: 3
-console.log(triangle.isValid); // Output: true
-console.log(triangle2.isValid); // Output: false
-console.log(triangle.perimeter); // Output: 15
-console.log(triangle2.perimeter); // Output: 26
-
-// Create a new instance of Square
-const square = new Square([5, 5, 5, 5]);
-const square2 = new Square([5, 4, 3, 2]);
-
-// Test Square methods
-console.log(square.countSides); // Output: 4
-console.log(square.isValid); // Output: true
-console.log(square2.isValid); // Output: false
-console.log(square.perimeter); // Output: 20
-console.log(square.area); // Output: 25
+    const [side1, side2, side3] = this.sides;
+    return (side1 + side2 > side3) && (side1 + side3 > side2) && (side2 + side3 > side1);
+  }
+}
