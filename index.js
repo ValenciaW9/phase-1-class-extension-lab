@@ -13,6 +13,7 @@ class Polygon {
     return this.sides.reduce((sum, side) => sum + side, 0);
   }
 }
+
 class Triangle extends Polygon {
   // Use the get keyword to create a getter method isValid
   get isValid() {
@@ -24,6 +25,7 @@ class Triangle extends Polygon {
     return a + b > c && a + c > b && b + c > a;
   }
 }
+
 class Square extends Polygon {
   // Use the get keyword to create a getter method isValid
   get isValid() {
@@ -45,3 +47,27 @@ class Square extends Polygon {
     return side * side;
   }
 }
+
+// Add the import statement for the required helper functions
+const { expect } = require('./helpers.js');
+
+// Rest of the code...
+describe("Polygon", () => {
+  let polygon; // Define the polygon variable
+
+  beforeEach(() => {
+    polygon = new Polygon([5, 5, 5]);
+  });
+
+  it("has a Polygon class", () => {
+    expect(Polygon).to.exist;
+  });
+
+  it("Polygon has a countSides getter method that returns the number of sides of the polygon", () => {
+    expect(polygon.countSides).to.eq(3);
+  });
+
+  it("Polygon has a perimeter getter that calculates perimeter", () => {
+    expect(polygon.perimeter).to.eq(15);
+  });
+});
